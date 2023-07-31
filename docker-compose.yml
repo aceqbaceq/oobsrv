@@ -1,0 +1,28 @@
+version: '3.5'
+
+
+networks:
+  # The presence of these objects is sufficient to define them
+  lan: {}
+
+
+
+services:
+    openobserve:
+        container_name: ${CONTAINER_NAME_PREFIX}-obsrv
+        image:
+          public.ecr.aws/zinclabs/openobserve@sha256:5910ee20d6f73d44037432fa258d216befd5017f090c0ce6a786e28169095b58
+        volumes:
+            - ./obsrv/data:/data
+        environment:
+            ZO_ROOT_USER_EMAIL: ${ZO_ROOT_USER_EMAIL}
+            ZO_ROOT_USER_PASSWORD: ${ZO_ROOT_USER_PASSWORD}
+        networks:
+            - lan
+        ports:
+            - ${OBSRV_PORT}:5080
+        restart: 'always'
+
+
+
+
